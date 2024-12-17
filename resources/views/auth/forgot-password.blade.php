@@ -5,7 +5,10 @@
     @csrf
 
     <div class="card-body">
-        <h2 class="card-title text-center mb-4">
+        <div class="w-100 text-center">
+            <img src="{{ asset('assets/img/sadeeka_electronics_logo.png') }}" class="img-fluid w-75" alt="{{ config('app.name') }}">
+        </div>
+        <h2 class="h1 text-center mb-4 mt-4">
             Forgot password
         </h2>
 

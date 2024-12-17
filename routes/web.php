@@ -19,6 +19,8 @@ use App\Http\Controllers\Dashboards\DashboardController;
 use App\Http\Controllers\Product\ProductExportController;
 use App\Http\Controllers\Product\ProductImportController;
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,9 +36,11 @@ Route::get('php/', function () {
     return phpinfo();
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login');
 
 Route::middleware(['auth'])->group(function () {
 
