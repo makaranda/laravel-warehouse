@@ -9,7 +9,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon2.png') }}" />
 
     <!-- CSS files -->
-    <link href="{{ asset('dist/css/tabler.min.css') }}" rel="stylesheet"/>
+    {{-- <link href="{{ asset('dist/css/tabler.min.css') }}" rel="stylesheet"/> --}}
     <link rel="stylesheet" href="{{ asset('admin-template/css/bootstrap.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('admin-template/css/animate.css') }}">
@@ -33,6 +33,8 @@
     <!-- Custom CSS for specific page.  -->
     @stack('page-styles')
     @livewireStyles
+
+    <link href="{{ asset('assets/css/mystyle.css') }}" rel="stylesheet"/>
 </head>
     <body>
         <div id="global-loader">

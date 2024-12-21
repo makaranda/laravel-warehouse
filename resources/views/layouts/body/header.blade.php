@@ -2,10 +2,10 @@
 <div class="header">
     <div class="header-left active">
        <a href="{{ url('/') }}" class="logo">
-       <img src="{{ asset('static/logo.svg') }}" alt="">
+       <img src="{{ asset('assets/img/sadeeka_electronics_logo.png') }}" alt="">
        </a>
        <a href="{{ url('/') }}" class="logo-small">
-       <img src="{{ asset('static/logo.svg') }}" alt="">
+       <img src="{{ asset('assets/img/sadeeka_electronics_logo.png') }}" alt="">
        </a>
        <a id="toggle_btn" href="javascript:void(0);">
        </a>
@@ -18,7 +18,7 @@
     </span>
     </a>
     <ul class="nav user-menu">
-       <li class="nav-item">
+       {{-- <li class="nav-item">
           <div class="top-nav-search">
              <a href="javascript:void(0);" class="responsive-search">
              <i class="fa fa-search"></i>
@@ -52,8 +52,8 @@
              <img src="{{ asset('admin-template/img/flags/de.png') }}" alt="" height="16"> German
              </a>
           </div>
-       </li>
-       <li class="nav-item dropdown">
+       </li> --}}
+       {{-- <li class="nav-item dropdown">
           <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
           <img src="{{ asset('admin-template/img/icons/notification-bing.svg') }}" alt="img"> <span class="badge rounded-pill">4</span>
           </a>
@@ -135,7 +135,7 @@
                 <a href="activities.html">View all Notifications</a>
              </div>
           </div>
-       </li>
+       </li> --}}
        <li class="nav-item dropdown has-arrow main-drop">
           <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
           <span class="user-img"><img src="{{ asset('admin-template/img/profiles/avator1.jpg') }}" alt="">

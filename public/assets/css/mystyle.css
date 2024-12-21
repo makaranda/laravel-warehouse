@@ -1,0 +1,19 @@
+.sidebar .sidebar-menu>ul>li.submenu ul li a:first-child {
+    font-weight: 500;
+    font-size: 14px;
+    color: #212b36;
+    position: relative;
+    display: block;
+    padding: 8px 8px 8px 40px;
+    background-color: #fff;
+}
+
+.custom-select-icon {
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none; /* Safari */
+    -moz-appearance: none; /* Firefox */
+    background: url('https://cdn-icons-png.flaticon.com/512/25/25243.png') no-repeat right 10px center;
+    background-size: 20px 20px; /* Adjust icon size */
+    padding-right: 40px; /* Leave space for the icon */
+}
+

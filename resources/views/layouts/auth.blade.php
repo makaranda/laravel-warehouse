@@ -21,6 +21,7 @@
     <!-- Custom CSS for specific page.  -->
     @stack('page-styles')
 
+    <link href="{{ asset('css/mystyle.css') }}" rel="stylesheet"/>
     <style>
         .background-radial-gradient {
           background-color: hsl(218, 41%, 15%);

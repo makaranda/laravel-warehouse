@@ -9,6 +9,8 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\Quotation;
+use App\Models\Supplier;
+use App\Models\Customer;
 
 class DashboardController extends Controller
 {
@@ -19,6 +21,8 @@ class DashboardController extends Controller
             ->count();
 
         $products = Product::count();
+        $suppliers = Supplier::count();
+        $customers = Customer::count();
 
         $purchases = Purchase::count();
         $todayPurchases = Purchase::query()
@@ -43,6 +47,8 @@ class DashboardController extends Controller
             'categories' => $categories,
             'quotations' => $quotations,
             'todayQuotations' => $todayQuotations,
+            'suppliers' => $suppliers,
+            'customers' => $customers,
         ]);
     }
 }

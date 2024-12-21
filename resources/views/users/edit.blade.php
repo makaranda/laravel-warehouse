@@ -67,6 +67,17 @@
                                             <x-input name="email" :value="old('name', $user->email)" label="Email address" required="true"/>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <label>User Types</label>
+                                        <select name="user_type" label="User Types" class="form-control mt-2 custom-select-icon">
+                                            <option value="2" {{ $user->user_type == 2 ? 'selected' : '' }}>Warehouse Manager</option>
+                                            <option value="4" {{ $user->user_type == 4 ? 'selected' : '' }}>Warehouse Operator</option>
+                                            <option value="3" {{ $user->user_type == 3 ? 'selected' : '' }}>Showroom Manager</option>
+                                            <option value="5" {{ $user->user_type == 5 ? 'selected' : '' }}>Showroom Operator</option>
+                                            <option value="1" {{ $user->user_type == 1 ? 'selected' : '' }}>Admin</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="card-footer text-end">
                                     <x-button.save type="submit">

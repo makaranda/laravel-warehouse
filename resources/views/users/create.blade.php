@@ -81,6 +81,17 @@
                                     <div class="col-sm-6 col-md-6">
                                         <x-input type="password" name="password_confirmation" label="Password Confirmation"/>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <label>User Types</label>
+                                        <select name="user_type" label="User Types" class="form-control mt-2 custom-select-icon">
+                                            <option value="2">Warehouse Manager</option>
+                                            <option value="4">Warehouse Operator</option>
+                                            <option value="3">Showrom Manager</option>
+                                            <option value="5">Showrom Operator</option>
+                                            <option value="1">Admin</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
