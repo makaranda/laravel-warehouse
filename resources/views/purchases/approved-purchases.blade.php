@@ -46,7 +46,7 @@
                                 {{ $purchase->purchase_date ? $purchase->purchase_date->format('d-m-Y') : 'N/A' }}
                             </td>
                             <td class="align-middle text-center">
-                                {{ Number::currency($purchase->total_amount, 'EUR') }}
+                                {{ Number::currency($purchase->total_amount, 'LKR') }}
                             </td>
                             <td class="align-middle text-center">
                                 <span class="btn btn-{{ $purchase->purchase_status == 0 ? 'warning' : 'success' }} btn-sm text-uppercase">{{ $purchase->purchase_status == 0 ? 'pending' : 'approved' }}</span>

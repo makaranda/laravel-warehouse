@@ -22,7 +22,7 @@
                 </ul> --}}
              </li>
              <li class="submenu {{ request()->is('orders*') ? 'active' : null }}">
-                <a href="javascript:void(0);"><img src="{{ asset('admin-template/img/icons/sales1.svg') }}" alt="img"><span> Sales</span> <span class="menu-arrow"></span></a>
+                <a href="javascript:void(0);"><img src="{{ asset('admin-template/img/icons/sales1.svg') }}" alt="img"><span> Orders</span> <span class="menu-arrow"></span></a>
                 <ul>
                    <li><a href="{{ route('orders.index') }}">Orders List</a></li>
                    <li><a href="{{ route('orders.complete') }}">Completed</a></li>

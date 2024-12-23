@@ -16,6 +16,7 @@
                 <th class="align-middle text-center">Total</th>
                 <th class="align-middle text-center">Action</th>
             </tr>
+
         </thead>
 
         <tbody>
@@ -127,7 +128,7 @@
                 </th>
                 <td class="text-center">
 {{--                    ${{ number_format($subtotal, 2) }}--}}
-                    {{ Number::currency($subtotal, 'EUR') }}
+                    {{ Number::currency($subtotal, 'LKR') }}
                 </td>
             </tr>
             <tr>
