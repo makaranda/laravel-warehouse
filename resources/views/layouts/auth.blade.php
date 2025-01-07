@@ -64,6 +64,12 @@
           background-color: hsla(0, 0%, 100%, 0.9) !important;
           backdrop-filter: saturate(200%) blur(25px);
         }
+        .alert-success  {
+            border: 2px solid #12ba12 !important;
+            h3{
+                color: #12ba12 !important;
+            }
+        }
       </style>
 </head>
 

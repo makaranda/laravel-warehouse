@@ -31,6 +31,7 @@
     </style> --}}
 
     <!-- Custom CSS for specific page.  -->
+    <link href="{{ asset('assets/css/mystyle.css') }}" rel="stylesheet"/>
     @stack('page-styles')
     @livewireStyles
 

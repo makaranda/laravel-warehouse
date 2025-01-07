@@ -17,3 +17,26 @@
     padding-right: 40px; /* Leave space for the icon */
 }
 
+
+.alert-success  {
+    border: 2px solid #12ba12 !important;
+    h3{
+        color: #12ba12 !important;
+        font-weight: 700;
+    }
+    p{
+        color: #12ba12 !important;
+    }
+}
+
+.alert-danger  {
+    border: 2px solid #ad0000 !important;
+    h3{
+        color: #ad0000 !important;
+        font-weight: 700;
+    }
+    p{
+        color: #ad0000 !important;
+    }
+}
+

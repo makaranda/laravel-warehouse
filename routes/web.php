@@ -40,6 +40,7 @@ Route::get('php/', function () {
 //     return view('welcome');
 // });
 
+
 Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login');
 
 Route::middleware(['auth'])->group(function () {
@@ -104,6 +105,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/purchases/{purchase}/edit', [PurchaseController::class, 'edit'])->name('purchases.edit');
     Route::put('/purchases/{purchase}/edit', [PurchaseController::class, 'update'])->name('purchases.update');
     Route::delete('/purchases/{purchase}', [PurchaseController::class, 'destroy'])->name('purchases.delete');
+});
+
+Route::get('/unauthorized', function () {
+    return view('errors.unauthorized');
 });
 
 require __DIR__.'/auth.php';

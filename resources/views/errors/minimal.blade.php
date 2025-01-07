@@ -29,6 +29,7 @@
             <div class="container-tight py-4">
                 <div class="empty">
                     <div class="empty-header">
+                        <img src="{{ asset('assets/img/sadeeka_electronics_logo.png') }}" alt="Main Logo" class="img-fluid mb-4"/>
                         @yield('code')
                     </div>
                     <p class="empty-title">Oops… You just found an error page</p>
