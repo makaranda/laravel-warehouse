@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Quotation;
 use App\Models\QuotationDetails;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class QuotationController extends Controller
@@ -40,47 +41,64 @@ class QuotationController extends Controller
 
     public function store(StoreQuotationRequest $request)
     {
-        DB::transaction(function () use ($request) {
-            $quotation = Quotation::create([
-                'date' => $request->date,
-                'reference' => $request->reference,
-                'customer_id' => $request->customer_id,
-                'customer_name' => Customer::findOrFail($request->customer_id)->name,
-                'tax_percentage' => $request->tax_percentage,
-                'discount_percentage' => $request->discount_percentage,
-                'shipping_amount' => $request->shipping_amount, //* 100,
-                'total_amount' => $request->total_amount, //* 100,
-                'status' => $request->status,
-                'note' => $request->note,
-                'tax_amount' => Cart::instance('quotation')->tax(), //* 100,
-                'discount_amount' => Cart::instance('quotation')->discount(), //* 100,
-            ]);
+        try {
+            $quotation = null;
 
-            foreach (Cart::instance('quotation')->content() as $cart_item) {
-                QuotationDetails::create([
-                    'quotation_id' => $quotation->id,
-                    'product_id' => $cart_item->id,
-                    'product_name' => $cart_item->name,
-                    'product_code' => $cart_item->options->code,
-                    'quantity' => $cart_item->qty,
-                    'price' => $cart_item->price, //* 100,
-                    'unit_price' => $cart_item->options->unit_price, //* 100,
-                    'sub_total' => $cart_item->options->sub_total, //* 100,
-                    'product_discount_amount' => $cart_item->options->product_discount, //* 100,
-                    'product_discount_type' => $cart_item->options->product_discount_type,
-                    'product_tax_amount' => $cart_item->options->product_tax, //* 100,
+            DB::transaction(function () use ($request, &$quotation) {
+                $quotation = Quotation::create([
+                    'date' => $request->date,
+                    'reference' => $request->reference,
+                    'customer_id' => $request->customer_id,
+                    'customer_name' => Customer::findOrFail($request->customer_id)->name,
+                    'tax_percentage' => $request->tax_percentage,
+                    'discount_percentage' => $request->discount_percentage,
+                    'shipping_amount' => $request->shipping_amount,
+                    'total_amount' => $request->total_amount,
+                    'status' => $request->status,
+                    'note' => $request->note,
+                    'tax_amount' => Cart::instance('quotation')->tax(),
+                    'discount_amount' => Cart::instance('quotation')->discount(),
                 ]);
-            }
 
-            Cart::instance('quotation')->destroy();
-        });
+                foreach (Cart::instance('quotation')->content() as $cart_item) {
+                    QuotationDetails::create([
+                        'quotation_id' => $quotation->id,
+                        'product_id' => $cart_item->id,
+                        'product_name' => $cart_item->name,
+                        'product_code' => $cart_item->options->code,
+                        'quantity' => $cart_item->qty,
+                        'price' => $cart_item->price,
+                        'unit_price' => $cart_item->options->unit_price,
+                        'sub_total' => $cart_item->options->sub_total,
+                        'product_discount_amount' => $cart_item->options->product_discount,
+                        'product_discount_type' => $cart_item->options->product_discount_type,
+                        'product_tax_amount' => $cart_item->options->product_tax,
+                    ]);
+                }
 
-        //toast('Quotation Created!', 'success');
+                Cart::instance('quotation')->destroy();
+            });
 
-        return redirect()
-            ->route('quotations.index')
-            ->with('success', 'Quotation Created!');
+            // Send SMS Notification
+            $operator_name = Auth::user()->name;
+            $quotation_id = $quotation->id;
+            $message = "Hello,\n\nQuotation #$quotation_id has been successfully created by $operator_name.\nCustomer: {$quotation->customer_name}\nTotal Amount: {$quotation->total_amount}\n\nRegards,\nSadeeka Electronics Team";
+
+            sendSms(env('OWNER_PHONE'), $message);
+
+            return redirect()
+                ->route('quotations.index')
+                ->with('success', 'Quotation Created!');
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Quotation Creation Error: ' . $e->getMessage());
+
+            return redirect()
+                ->route('quotations.index')
+                ->with('error', 'Failed to create quotation. Please try again.');
+        }
     }
+
 
     public function show()
     {

@@ -60,3 +60,22 @@ if (!function_exists('array_merge_numeric_values')) {
         return $merged;
     }
 }
+
+if (!function_exists('sendSms')) {
+    function sendSms(string $phone, string $message, string $senderId = 'SendTest')
+    {
+        $response = Http::withHeaders([
+            'Authorization' => '2334|bH0R9fligE86CIzDKMZmViVZmykcOD0xPCLyrqhK',
+        ])->post('https://sms.send.lk/api/v3/sms/send', [
+            'recipient' => $phone,
+            'sender_id' => $senderId,
+            'message' => $message,
+        ]);
+
+        if ($response->successful()) {
+            return true;
+        }
+
+        return $response->body(); // Return the error message or response body
+    }
+}

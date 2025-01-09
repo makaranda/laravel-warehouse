@@ -12,14 +12,16 @@
                     <x-icon.vertical-dots/>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" style="">
-                    <a href="{{ route('products.create') }}" class="dropdown-item">
-                        <x-icon.plus/>
-                        {{ __('Create Product') }}
-                    </a>
-                    <a href="{{ route('products.import.view') }}" class="dropdown-item">
-                        <x-icon.plus/>
-                        {{ __('Import Products') }}
-                    </a>
+                    @if (in_array(Auth::user()->user_type, [1, 2, 4]))
+                        <a href="{{ route('products.create') }}" class="dropdown-item">
+                            <x-icon.plus/>
+                            {{ __('Create Product') }}
+                        </a>
+                        <a href="{{ route('products.import.view') }}" class="dropdown-item">
+                            <x-icon.plus/>
+                            {{ __('Import Products') }}
+                        </a>
+                    @endif
                     <a href="{{ route('products.export.store') }}" class="dropdown-item">
                         <x-icon.plus/>
                         {{ __('Export Products') }}
@@ -110,8 +112,10 @@
                     </td>
                     <td class="align-middle text-center" style="width: 10%">
                         <x-button.show class="btn-icon" route="{{ route('products.show', $product) }}"/>
-                        <x-button.edit class="btn-icon" route="{{ route('products.edit', $product) }}"/>
-                        <x-button.delete class="btn-icon" route="{{ route('products.destroy', $product) }}"/>
+                        @if (in_array(Auth::user()->user_type, [1, 2, 4]))
+                            <x-button.edit class="btn-icon" route="{{ route('products.edit', $product) }}"/>
+                            <x-button.delete class="btn-icon" route="{{ route('products.destroy', $product) }}"/>
+                        @endif
                     </td>
                 </tr>
             @empty

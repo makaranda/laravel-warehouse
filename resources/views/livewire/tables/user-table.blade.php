@@ -56,12 +56,22 @@
                     </a>
                 </th>
                 <th scope="col" class="align-middle text-center">
+                    <a wire:click.prevent="sortBy('user_type')" href="#" role="button">
+                        {{ __('User Type') }}
+                        @include('inclues._sort-icon', ['field' => 'user_type'])
+                    </a>
+                </th>
+                <th scope="col" class="align-middle text-center">
                     {{ __('Action') }}
                 </th>
             </tr>
             </thead>
             <tbody>
             @forelse ($users as $user)
+                @php
+                    $getAllUserRoles = \App\Models\UserRoles::where('user_role', $user->user_type)->first();
+                @endphp
+
                 <tr>
                     <td class="align-middle text-center">
                         {{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}
@@ -71,6 +81,9 @@
                     </td>
                     <td class="align-middle">
                         {{ $user->email }}
+                    </td>
+                    <td class="align-middle">
+                        {{ $getAllUserRoles->role_name }}
                     </td>
                     <td class="align-middle text-center" style="width: 15%">
                         <x-button.show class="btn-icon" route="{{ route('users.show', $user) }}"/>

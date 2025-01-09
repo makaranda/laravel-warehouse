@@ -27,14 +27,18 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        $user = User::create($request->all());
+        // Hash the password before creating the user
+        $user = User::create(array_merge(
+            $request->except('password'),
+            ['password' => Hash::make($request->password)]
+        ));
 
         /**
-         * Handle upload an image
+         * Handle uploading an image
          */
-        if($request->hasFile('photo')){
+        if ($request->hasFile('photo')) {
             $file = $request->file('photo');
-            $filename = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
+            $filename = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
 
             $file->storeAs('profile/', $filename, 'public');
             $user->update([
@@ -46,6 +50,7 @@ class UserController extends Controller
             ->route('users.index')
             ->with('success', 'New User has been created!');
     }
+
 
     public function show(User $user)
     {
@@ -63,31 +68,37 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
+        // Extract validated data
+        $data = $request->except('photo', 'password');
 
-//        if ($validatedData['email'] != $user->email) {
-//            $validatedData['email_verified_at'] = null;
-//        }
+        // Check if a new password is provided
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
 
-        $user->update($request->except('photo'));
+        // Update user with the data
+        $user->update($data);
 
         /**
          * Handle upload image with Storage.
          */
-        if($request->hasFile('photo')){
-
+        if ($request->hasFile('photo')) {
             // Delete Old Photo
-            if($user->photo){
-                unlink(public_path('storage/profile/') . $user->photo);
+            if ($user->photo) {
+                $oldPhotoPath = public_path('storage/profile/') . $user->photo;
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath);
+                }
             }
 
             // Prepare New Photo
             $file = $request->file('photo');
-            $fileName = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
+            $fileName = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
 
             // Store an image to Storage
             $file->storeAs('profile/', $fileName, 'public');
 
-            // Save DB
+            // Save the new photo to the database
             $user->update([
                 'photo' => $fileName
             ]);
@@ -97,6 +108,7 @@ class UserController extends Controller
             ->route('users.index')
             ->with('success', 'User has been updated!');
     }
+
 
     public function updatePassword(Request $request, String $username)
     {

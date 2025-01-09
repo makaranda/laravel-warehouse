@@ -21,34 +21,39 @@
                    <li><a href="barcode.html">Print Barcode</a></li>
                 </ul> --}}
              </li>
-             <li class="submenu {{ request()->is('orders*') ? 'active' : null }}">
-                <a href="javascript:void(0);"><img src="{{ asset('admin-template/img/icons/sales1.svg') }}" alt="img"><span> Orders</span> <span class="menu-arrow"></span></a>
-                <ul>
-                   <li><a href="{{ route('orders.index') }}">Orders List</a></li>
-                   <li><a href="{{ route('orders.complete') }}">Completed</a></li>
-                   <li><a href="{{ route('orders.pending') }}">Pending</a></li>
-                   <li><a href="{{ route('due.index') }}">Due</a></li>
-                </ul>
-             </li>
-             <li class="submenu {{ request()->is('purchases*') ? 'active' : null }}">
-                <a href="javascript:void(0);"><img src="{{ asset('admin-template/img/icons/purchase1.svg') }}" alt="img"><span> Purchase</span> <span class="menu-arrow"></span></a>
-                <ul>
-                   <li><a href="{{ route('purchases.index') }}">Purchase List</a></li>
-                   <li><a href="{{ route('purchases.approvedPurchases') }}">Approval</a></li>
-                   <li><a href="{{ route('purchases.dailyPurchaseReport') }}">Daily Purchase Report</a></li>
-                </ul>
-             </li>
+             @if (in_array(Auth::user()->user_type, [1, 2, 4]))
+                <li class="submenu {{ request()->is('orders*') ? 'active' : null }}">
+                    <a href="javascript:void(0);"><img src="{{ asset('admin-template/img/icons/sales1.svg') }}" alt="img"><span> Orders</span> <span class="menu-arrow"></span></a>
+                    <ul>
+                    <li><a href="{{ route('orders.index') }}">Orders List</a></li>
+                    <li><a href="{{ route('orders.complete') }}">Completed</a></li>
+                    <li><a href="{{ route('orders.pending') }}">Pending</a></li>
+                    <li><a href="{{ route('due.index') }}">Due</a></li>
+                    </ul>
+                </li>
+             @endif
+             @if (in_array(Auth::user()->user_type, [1, 2, 4]))
+                <li class="submenu {{ request()->is('purchases*') ? 'active' : null }}">
+                    <a href="javascript:void(0);"><img src="{{ asset('admin-template/img/icons/purchase1.svg') }}" alt="img"><span> Purchase</span> <span class="menu-arrow"></span></a>
+                    <ul>
+                    <li><a href="{{ route('purchases.index') }}">Purchase List</a></li>
+                    <li><a href="{{ route('purchases.approvedPurchases') }}">Approval</a></li>
+                    <li><a href="{{ route('purchases.dailyPurchaseReport') }}">Daily Purchase Report</a></li>
+                    </ul>
+                </li>
+             @endif
              <li class="{{ request()->is('quotations*') ? 'active' : null }}">
                 <a href="{{ route('quotations.index') }}"><img src="{{ asset('admin-template/img/icons/quotation1.svg') }}" alt="img"><span> Quotations</span></a>
              </li>
-
-             <li class="submenu {{ request()->is('suppliers*', 'customers*') ? 'active' : null }}">
-               <a href="javascript:void(0);"><img src="{{ asset('admin-template/img/icons/users1.svg') }}" alt="img"><span> Supliers</span> <span class="menu-arrow"></span></a>
-               <ul>
-                  <li><a href="{{ route('suppliers.index') }}">Suppliers </a></li>
-                  <li><a href="{{ route('customers.index') }}">Customers </a></li>
-               </ul>
-            </li>
+             @if (in_array(Auth::user()->user_type, [1, 2, 4]))
+                <li class="submenu {{ request()->is('suppliers*', 'customers*') ? 'active' : null }}">
+                <a href="javascript:void(0);"><img src="{{ asset('admin-template/img/icons/users1.svg') }}" alt="img"><span> Supliers & Customers</span> <span class="menu-arrow"></span></a>
+                <ul>
+                    <li><a href="{{ route('suppliers.index') }}">Suppliers </a></li>
+                    <li><a href="{{ route('customers.index') }}">Customers </a></li>
+                </ul>
+                </li>
+            @endif
              {{-- <li class="submenu">
                 <a href="javascript:void(0);"><img src="{{ asset('admin-template/img/icons/expense1.svg') }}" alt="img"><span> Expense</span> <span class="menu-arrow"></span></a>
                 <ul>
@@ -116,6 +121,7 @@
                   <li><a href="userlists.html">Users List</a></li>
                </ul>
             </li> --}}
+            @if (in_array(Auth::user()->user_type, [1, 2, 4]))
             <li class="submenu {{ request()->is('users*', 'categories*', 'units*') ? 'active' : null }}">
                <a href="javascript:void(0);"><img src="{{ asset('admin-template/img/icons/settings.svg') }}" alt="img"><span> Settings</span> <span class="menu-arrow"></span></a>
                <ul>
@@ -124,6 +130,7 @@
                   <li><a href="{{ route('units.index') }}">Units</a></li>
                </ul>
             </li>
+            @endif
              {{-- <li class="submenu">
                 <a href="javascript:void(0);"><i data-feather="box"></i> <span>Elements </span> <span class="menu-arrow"></span></a>
                 <ul>

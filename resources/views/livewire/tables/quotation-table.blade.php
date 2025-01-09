@@ -103,8 +103,10 @@
                     </td>
                     <td class="align-middle text-center">
                         <x-button.show class="btn-icon" route="{{ route('quotations.show', $quotation) }}"/>
-                        <x-button.edit class="btn-icon" route="{{ route('quotations.edit', $quotation) }}"/>
-                        <x-button.delete class="btn-icon" route="{{ route('quotations.destroy', $quotation) }}"/>
+                        @if (in_array(Auth::user()->user_type, [1, 2, 4]))
+                            <x-button.edit class="btn-icon" route="{{ route('quotations.edit', $quotation) }}"/>
+                            <x-button.delete class="btn-icon" route="{{ route('quotations.destroy', $quotation) }}"/>
+                        @endif
                     </td>
                 </tr>
             @empty
